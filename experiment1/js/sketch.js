@@ -77,3 +77,41 @@ function draw() {
 function mousePressed() {
     // code to run when mouse is pressed
 }
+
+//code from web browser
+/*let c;
+function setup() {
+  createCanvas(100, 100);
+
+  background(0);
+
+  // Create a p5.Color object;
+  c = color(0, 71, 171);
+
+  // Draw the left rectangle.
+  noStroke();
+  // fill(c);
+  //rect(15, 20, 35, 60);
+
+  // Change the alpha value.
+ //c.setAlpha(128);
+
+  // Draw the right rectangle.
+  fill(c);
+  dying_light = rect(50, 20, 35, 60);
+}
+
+function mousePressed() {
+ // dying_light.erase();
+  erase();
+  rect(50, 20, 35, 60);
+  noErase();
+  //c.setAlpha(alpha(c) - 25);
+  //c.setAlpha(250);
+  c.setBlue(blue(c) - 25);
+  c.setGreen(green(c) - 25);
+ // c.setAlpha(180);
+  fill(c);
+  rect(50, 20, 35, 60);
+}
+*/

@@ -28,7 +28,11 @@ h1, h2 {
 .image-wrapper img {
   max-width: 100%;
   height: auto;
+  cursor: url("scooby_snack.png"), auto;
+  /*cursor: url('')*/
+  
 }
+
 
 /* Set the canvas element to be the full size of the container */
 canvas {
