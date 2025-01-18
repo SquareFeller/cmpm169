@@ -14,6 +14,7 @@ const VALUE2 = 2;
 let myInstance;
 let canvasContainer;
 var centerHorz, centerVert;
+let c;
 
 class MyClass {
     constructor(param1, param2) {
@@ -49,31 +50,144 @@ function setup() {
     resizeScreen();
   });
   resizeScreen();
+  //createCanvas(800, 800);
+  background(0);
+  
+  //making the eye
+  push();
+  //translate(400, 400);
+  rotate(-PI/8);
+  strokeWeight(18);
+  stroke(210, 153, 108);
+  ellipse(centerHorz - 150, centerVert + 250, 620, 400); // eye background
+  fill(0);
+  ellipse(centerHorz - 150, centerVert + 250, 360, 300); //pupil?
+  // eye is over
+  pop();
+
+  c = color(0, 71, 240); // color of lighthouse's light
+  noStroke();
+  fill(c);
+  dying_light = triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20); // lighthouse's light 
 }
 
 // draw() function is called repeatedly, it's the main animation loop
 function draw() {
-  background(220);    
-  // call a method on the instance
-  myInstance.myMethod();
+  strokeWeight(0);
+  fill(180);
+  rect(centerHorz - 100 , centerVert ,55, 120); //lighthouse base
+  rect(centerHorz - 88, centerVert-40, 30, 40); //lighthouse head
+  fill(110, 0, 0);
+  triangle(centerHorz - 88, centerVert - 40, centerHorz - 59, centerVert - 40, centerHorz - 70, centerVert - 65); //lighthouse top
 
-  // Set up rotation for the rectangle
-  push(); // Save the current drawing context
-  translate(centerHorz, centerVert); // Move the origin to the rectangle's center
-  rotate(frameCount / 100.0); // Rotate by frameCount to animate the rotation
-  fill(234, 31, 81);
-  noStroke();
-  rect(-125, -125, 250, 250); // Draw the rectangle centered on the new origin
-  pop(); // Restore the original drawing context
+  drawWaves(rows);
+  colorMode(RGB);
+  push();
+  rotate(-PI/8);
+  noFill();
+  strokeWeight(57);
+  stroke(180, 200, 190);
+  ellipse(centerHorz - 150,centerVert + 250, 360, 300); //iris
+  pop();
 
-  // The text is not affected by the translate and rotate
-  fill(255);
-  textStyle(BOLD);
-  textSize(140);
-  text("p5*", centerHorz - 105, centerVert + 40);
 }
 
 // mousePressed() function is called once after every time a mouse button is pressed
 function mousePressed() {
-    // code to run when mouse is pressed
+    dying_light.erase();
+    noErase();
+    if(blue(c) == 0){
+        c = color(0, 71, 240);
+        noStroke();
+        fill(c);
+        triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20);
+       // waveMaxHeight = 115;
+    }else{
+      c.setBlue(blue(c) - 40);
+      c.setGreen(green(c) - 25);
+      noStroke();
+      fill(c);
+      triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20);
+    //  waveMaxHeight += 30;
+    }
+}
+
+// using "wave motion" by pippinbarr  (https://editor.p5js.org/pippinbarr/sketches/bgKTIXoir) for the waves in the eye
+
+
+// How many rows of waves to display
+let rows = 1;
+// What is the range of motion for a single wave (vertically)
+let waveMaxHeight = 115;
+// A base time value for our noise() function which we'll
+// use to move the waves overall
+let baseT = 0;
+/**
+Draws the specified number of waves on the canvas!
+*/
+function drawWaves(number) {
+  // Loop through all our rows and draw each wave
+  // We loop "backwards" to draw them one on top of the other
+  // nicely
+  for (let i = number; i >= 0; i--) {
+    drawWave(i, number);
+  }
+  // Increment the base time parameter so that the waves move
+  baseT += 0.01;
+}
+
+/**
+Draws the nth wave.
+
+Paramters are
+* n - the number of the wave
+* rows - the total number of waves
+*/
+function drawWave(n, rows) {
+  // Calculate the base y for this wave based on an offset from the
+  // bottom of the canvas and subtracting the number of waves
+  // to move up. We're dividing the wave height in order to make the
+  // waves overlap
+  let baseY = centerVert + 140;//height - (n*waveMaxHeight + 100);
+  // Get the starting time parameter for this wave based on the
+  // base time and an offset based on the wave number
+  let t = baseT + n*100;
+  // We'll start each wave at 250 on the x axis
+  let startX = centerHorz - 120;
+  
+  // must clamp the wave within the pupil
+  let endX = startX + 260; 
+  // Let's start drawing
+  push();
+  // We'll use the HSB model to vary their color more easily
+  colorMode(HSB);
+  // Calculate the hue (0 - 360) based on the wave number, mapping
+  // it to an HSB hue value
+  let hue = map(n, 0, rows, 249, 250);
+  fill(hue, 255, 50);
+  noStroke();
+  // We're using vertex-based drawing
+  beginShape();
+  // Starting vertex!
+  vertex(startX, baseY);
+  // Loop along the x axis drawing vertices for each point
+  // along the noise() function in increments of 10
+  for (let x = startX; x <= endX; x += 10) {
+    // Calculate the wave's y based on the noise() function
+    // and the baseY
+    let y = baseY - map(noise(t), 0, 1, 10, waveMaxHeight);
+    // Draw our vertex
+    vertex(x, y);
+    // Increment our time parameter so the wave varies on y
+    t += 0.01;
+  }
+  // Draw the final three vertices to close the shape around
+  // the edges of the canvas 
+  
+  //change the final three vertices to match the pupil shape (kinda, hopefully)
+  //vertex(endX, baseY);
+  vertex(endX, baseY - 40);
+  //vertex(startX, baseY);
+  // Done!
+  endShape();
 }
