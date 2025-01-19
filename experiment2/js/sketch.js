@@ -15,6 +15,10 @@ let myInstance;
 let canvasContainer;
 var centerHorz, centerVert;
 let c;
+let pupil;
+let eye_background;
+let pupil_background; 
+let iris;
 
 class MyClass {
     constructor(param1, param2) {
@@ -50,44 +54,48 @@ function setup() {
     resizeScreen();
   });
   resizeScreen();
-  //createCanvas(800, 800);
   background(0);
   
   //making the eye
   push();
-  //translate(400, 400);
   rotate(-PI/8);
   strokeWeight(18);
   stroke(210, 153, 108);
-  ellipse(centerHorz - 150, centerVert + 250, 620, 400); // eye background
-  fill(0);
-  ellipse(centerHorz - 150, centerVert + 250, 360, 300); //pupil?
+  //ellipse(centerHorz - 150, centerVert + 250, 620, 400); // eye background
+  eye_background = ellipse(canvasContainer.width()/2.5, canvasContainer.height()/1.1, centerHorz, canvasContainer.height()/1.2); // eye background
+  fill(0); 
+  //ellipse(centerHorz - 150, centerVert + 250, 360, 300); //pupil?
+  pupil_background = ellipse(canvasContainer.width()/2.5, canvasContainer.height()/1.1, centerHorz/1.5, canvasContainer.height()/1.6); 
   // eye is over
   pop();
 
   c = color(0, 71, 240); // color of lighthouse's light
   noStroke();
   fill(c);
-  dying_light = triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20); // lighthouse's light 
+ // dying_light = triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20); // lighthouse's light 
+  dying_light = triangle(canvasContainer.width()/1.5, canvasContainer.height()/1.9, canvasContainer.width()/1.5, canvasContainer.height()/2.6, canvasContainer.width()/2.3, canvasContainer.height()/2.3); // lighthouse's light
 }
 
 // draw() function is called repeatedly, it's the main animation loop
 function draw() {
   strokeWeight(0);
   fill(180);
-  rect(centerHorz - 100 , centerVert ,55, 120); //lighthouse base
-  rect(centerHorz - 88, centerVert-40, 30, 40); //lighthouse head
+  //rect(centerHorz - 100 , centerVert ,55, 120); //lighthouse base
+  rect(canvasContainer.width()/2.4, canvasContainer.height()/2, canvasContainer.width()/24, canvasContainer.height()/6); //lighthouse base
+  //rect(centerHorz - 88, centerVert-40, 30, 40); //lighthouse head
+  rect(canvasContainer.width()/2.3625, canvasContainer.height()/2.4, canvasContainer.width()/36, canvasContainer.height()/12); //lighthouse head
   fill(110, 0, 0);
-  triangle(centerHorz - 88, centerVert - 40, centerHorz - 59, centerVert - 40, centerHorz - 70, centerVert - 65); //lighthouse top
+  //triangle(centerHorz - 88, centerVert - 40, centerHorz - 59, centerVert - 40, centerHorz - 70, centerVert - 65); //lighthouse top
+  triangle(canvasContainer.width()/2.3625, canvasContainer.height()/2.4, canvasContainer.width()/2.22, canvasContainer.height()/2.4, canvasContainer.width()/2.28, canvasContainer.height()/2.8); //lighthouse top
 
   drawWaves(rows);
   colorMode(RGB);
   push();
   rotate(-PI/8);
   noFill();
-  strokeWeight(57);
+  strokeWeight(80);
   stroke(180, 200, 190);
-  ellipse(centerHorz - 150,centerVert + 250, 360, 300); //iris
+  iris = ellipse(canvasContainer.width()/2.5, canvasContainer.height()/1.1, centerHorz/1.5, canvasContainer.height()/1.6); //iris
   pop();
 
 }
@@ -100,14 +108,14 @@ function mousePressed() {
         c = color(0, 71, 240);
         noStroke();
         fill(c);
-        triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20);
+        dying_light = triangle(canvasContainer.width()/1.5, canvasContainer.height()/1.9, canvasContainer.width()/1.5, canvasContainer.height()/2.6, canvasContainer.width()/2.3, canvasContainer.height()/2.3);
        // waveMaxHeight = 115;
     }else{
       c.setBlue(blue(c) - 40);
       c.setGreen(green(c) - 25);
       noStroke();
       fill(c);
-      triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20);
+      dying_light = triangle(canvasContainer.width()/1.5, canvasContainer.height()/1.9, canvasContainer.width()/1.5, canvasContainer.height()/2.6, canvasContainer.width()/2.3, canvasContainer.height()/2.3);
     //  waveMaxHeight += 30;
     }
 }
@@ -117,8 +125,10 @@ function mousePressed() {
 
 // How many rows of waves to display
 let rows = 1;
+
 // What is the range of motion for a single wave (vertically)
-let waveMaxHeight = 115;
+//let waveMaxHeight = Math.floor(canvasContainer.height()/2.5);
+//let waveMaxHeight = 150;
 // A base time value for our noise() function which we'll
 // use to move the waves overall
 let baseT = 0;
@@ -148,15 +158,15 @@ function drawWave(n, rows) {
   // bottom of the canvas and subtracting the number of waves
   // to move up. We're dividing the wave height in order to make the
   // waves overlap
-  let baseY = centerVert + 140;//height - (n*waveMaxHeight + 100);
+  let baseY = canvasContainer.height()/1.28; //centerVert + 140;//height - (n*waveMaxHeight + 100);
   // Get the starting time parameter for this wave based on the
   // base time and an offset based on the wave number
   let t = baseT + n*100;
   // We'll start each wave at 250 on the x axis
-  let startX = centerHorz - 120;
+  let startX = canvasContainer.width()/2.6;//centerHorz - 120; 
   
   // must clamp the wave within the pupil
-  let endX = startX + 260; 
+  let endX = startX * 1.64; 
   // Let's start drawing
   push();
   // We'll use the HSB model to vary their color more easily
@@ -175,7 +185,7 @@ function drawWave(n, rows) {
   for (let x = startX; x <= endX; x += 10) {
     // Calculate the wave's y based on the noise() function
     // and the baseY
-    let y = baseY - map(noise(t), 0, 1, 10, waveMaxHeight);
+    let y = baseY - map(noise(t), 0, 1, 10, canvasContainer.height()/4);//waveMaxHeight);
     // Draw our vertex
     vertex(x, y);
     // Increment our time parameter so the wave varies on y
@@ -185,9 +195,16 @@ function drawWave(n, rows) {
   // the edges of the canvas 
   
   //change the final three vertices to match the pupil shape (kinda, hopefully)
-  //vertex(endX, baseY);
-  vertex(endX, baseY - 40);
+  vertex(endX, baseY/1.15);
+  //bezierVertex(endX/1.2, baseY/1.15, startX * 1.4, baseY/1.15, startX, baseY);
+
+  //vertex(startX * 1.4, baseY/1.15);
+  //vertex(endX/1.2, baseY/1.15);
   //vertex(startX, baseY);
+
+  //vertex(endX, baseY);
+  //vertex(endX, canvasContainer.height()/3);
+  //vertex(startX, canvasContainer.height()/3);
   // Done!
   endShape();
 }
