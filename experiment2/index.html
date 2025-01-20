@@ -32,7 +32,7 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment X - Subject/Topic</h1>
+			<h1>Experiment 2 - Vector Art, Animation, & Interactivity</h1>
 
 			<div class="minor-section">
 				<div id="canvas-container">
@@ -46,17 +46,42 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>With this experiment, I wanted to create a scene that references some of my favorite recent video games: "Alan
+					Wake 2" and "Metaphor: ReFantazio". I wanted to match the compositon of a scene in "Metaphor" and use lyrics from
+					a song in "Alan Wake 2". So, I knew I wanted the scene to have moving waves and a lighthouse, but to be contained in the pupil 
+					of an eye. I also wanted an interactive element where the lighthouse's light could progressively "die" with every user click.
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>For this experiment, I followed a lot of tutorials to familiarize myself with p5.js. I needed to learn how to rotate the canvas to 
+					achieve the eye's angle, the order that shapes are drawn in, how to add the interactive element, and more. For the waves, I found
+					an existing p5.js sketch from pippinbarr titled <a href ="https://editor.p5js.org/pippinbarr/sketches/bgKTIXoir"> "Wave Motion"</a> which 
+					I modified to fit within the pupil.
+
+					As for the sketch itself, after setup(), a scale for the x and y is set up for resizing purposes, and then the canvas is rotated
+					in order to draw the eye background and then the black background of the pupil. The canvas is rotated back to normal, and the
+					lighthouse shapes and its light are drawn, and then the waves are drawn using pippinbarr's drawWaves() function. Afterward, the 
+					canvas is rotated again to draw the ellipse that represents the iris of the eye over the lighthouse and waves. 
+
+					For the mousePressed() function, the current light shape gets erased and then gets replaced with a shape that has a lower blue and green value
+					until it becomes black. If the shape's blue value is already at 0, then the shape gets reset to its starting values. 
+					</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>This was a somewhat difficult experiment for me. I was glad to have been able to work on a piece that resonates with me because it 
+					references some important/favorite games of mine, which kept me motivated to try and finish this. This also required me to get more familiar
+					with p5.js, especially with how rotating shapes work, the draw order, interactivity, and how to scale sketches to match different canvas sizes. 
+					I think the biggest difficulty came near the end when I had to make the sketch look good on this website where the canvas size can differ. I spent
+					a long time tweaking values and changing the order of my code, etc. But I think it worked it out, which I can now consider a success. I think
+					I was able to match the composition of the scene in "Metaphor" (which is another success), but the lighthouse looks really rudimentary since it is just made
+					up of three shapes, so maybe I should have spent more time on that. It would have been really cool to make the waves interactive, like maybe the peak 
+					of the waves would change depending on the mouse position, but I didn't have the time to research and implement that. The sketch could definitely
+					be improved, but I think I learned a lot from the process, and we shall see how future experiments turn out.
+					</p>
 			</div>
 
 		</section>

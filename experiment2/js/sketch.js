@@ -38,7 +38,6 @@ function resizeScreen() {
   centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
   console.log("Resizing...");
   resizeCanvas(canvasContainer.width(), canvasContainer.height());
-  //rotate(PI/8);
   // redrawCanvas(); // Redraw everything based on new size
 }
 
@@ -68,8 +67,10 @@ function setup() {
 function draw() {
   background(0);
 
+  //scale code came from ChatGPT's answer to "can you help me rotate an ellipse in p5js but make it so that it scales well whenever the canvas size is changed?"
   let scaleX = canvasContainer.width() / 1431;
   let scaleY = canvasContainer.height() / 600;
+
   //making the eye
   push();
   translate(centerHorz, centerVert);
@@ -78,35 +79,26 @@ function draw() {
   strokeWeight(18);
   fill(255);
   stroke(210, 153, 108);
-  //ellipse(centerHorz - 150, centerVert + 250, 620, 400); // eye background
-  //eye_background = ellipse(canvasContainer.width()/2.5, 600/1.1, canvasContainer.width()/2, 600/1.2); //canvasContainer.height()/1.2); // eye background
-  eye_background = ellipse(0, 0, 620, 450);//canvasContainer.width()/2, 600/1.2); // eye background
+  eye_background = ellipse(0, 0, 620, 450); // eye background
   fill(0); 
-  //ellipse(centerHorz - 150, centerVert + 250, 360, 300); //pupil?
-  //pupil_background = ellipse(canvasContainer.width()/2.5, 600/1.1, (canvasContainer.width()/2)/1.5, 600/1.6); 
-  pupil_background = ellipse(0, 0, 360, 300);//(canvasContainer.width()/2)/1.5, 600/1.6);
+  pupil_background = ellipse(0, 0, 360, 300);
   // eye is over
   pop();
 
   noStroke();
-  fill(c);
- // scale(scaleX, scaleY);
- // dying_light = triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20); // lighthouse's light 
+  fill(c); 
   dying_light = triangle(canvasContainer.width()/1.65, 600/1.9, canvasContainer.width()/1.65, 600/2.6, canvasContainer.width()/2.3, 600/2.3); // lighthouse's light
-  //dying_light = triangle(canvasContainer.width()/2.3625, )
   
   strokeWeight(0);
   fill(180);
-  //rect(centerHorz - 100 , centerVert ,55, 120); //lighthouse base
   rect(canvasContainer.width()/2.4, 600/2, canvasContainer.width()/24, 600/4.5); //lighthouse base
-  //rect(centerHorz - 88, centerVert-40, 30, 40); //lighthouse head
   rect(canvasContainer.width()/2.3625, 600/2.4, canvasContainer.width()/36, 600/12); //lighthouse head
   fill(110, 0, 0);
-  //triangle(centerHorz - 88, centerVert - 40, centerHorz - 59, centerVert - 40, centerHorz - 70, centerVert - 65); //lighthouse top
   triangle(canvasContainer.width()/2.3625, 600/2.4, canvasContainer.width()/2.22, 600/2.4, canvasContainer.width()/2.28, 600/2.8); //lighthouse top
 
   drawWaves(rows);
   colorMode(RGB);
+  
   push();
   translate(centerHorz, centerVert);
   scale(scaleX, scaleY);
@@ -114,7 +106,6 @@ function draw() {
   noFill();
   strokeWeight(80);
   stroke(180, 200, 190);
-  //iris = ellipse(canvasContainer.width()/2.5, 600/1.1, iris_width, iris_height); //iris
   iris = ellipse(0, 0, iris_width, iris_height); //iris
   pop();
 
@@ -129,19 +120,19 @@ function mousePressed() {
         noStroke();
         fill(c);
         dying_light = triangle(canvasContainer.width()/1.65, 600/1.9, canvasContainer.width()/1.65, 600/2.6, canvasContainer.width()/2.3, 600/2.3);
-       // waveMaxHeight = 115;
     }else{
       c.setBlue(blue(c) - 40);
       c.setGreen(green(c) - 25);
       noStroke();
       fill(c);
       dying_light = triangle(canvasContainer.width()/1.65, 600/1.9, canvasContainer.width()/1.65, 600/2.6, canvasContainer.width()/2.3, 600/2.3);
-    //  waveMaxHeight += 30;
     }
 }
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+
+
 // using "wave motion" by pippinbarr  (https://editor.p5js.org/pippinbarr/sketches/bgKTIXoir) for the waves in the eye
 
 
@@ -149,8 +140,6 @@ function windowResized() {
 let rows = 1;
 
 // What is the range of motion for a single wave (vertically)
-//let waveMaxHeight = Math.floor(canvasContainer.height()/2.5);
-//let waveMaxHeight = 150;
 // A base time value for our noise() function which we'll
 // use to move the waves overall
 let baseT = 0;
@@ -180,16 +169,16 @@ function drawWave(n, rows) {
   // bottom of the canvas and subtracting the number of waves
   // to move up. We're dividing the wave height in order to make the
   // waves overlap
-  //scale(scaleX, scaleY);
-  let baseY = 425;//canvasContainer.height()/1.28; //centerVert + 140;//height - (n*waveMaxHeight + 100);
+  let baseY = 425;
   // Get the starting time parameter for this wave based on the
   // base time and an offset based on the wave number
   let t = baseT + n*100;
   // We'll start each wave at 250 on the x axis
-  let startX = canvasContainer.width()/2.49;//canvasContainer.width()/2.65;//centerHorz - 120; 
+  let startX = canvasContainer.width()/2.49;
   
   // must clamp the wave within the pupil
-  let endX = canvasContainer.width()/1.65;//iris_width;//startX * 1.64; 
+  let endX = canvasContainer.width()/1.65;
+
   // Let's start drawing
   push();
   // We'll use the HSB model to vary their color more easily
@@ -219,16 +208,6 @@ function drawWave(n, rows) {
   
   //change the final three vertices to match the pupil shape (kinda, hopefully)
   vertex(endX, baseY/1.05);
-  //bezierVertex(endX/1.2, baseY/1.15, startX * 1.4, baseY/1.15, startX, baseY);
-
-  //vertex(startX * 1.4, baseY/1.15);
-  //vertex(endX/1.2, baseY/1.15);
-  //vertex(startX, baseY);
-
-  //vertex(endX, baseY);
-  //vertex(endX, canvasContainer.height()/3);
-  //vertex(startX, canvasContainer.height()/3);
   // Done!
   endShape();
 }
-
