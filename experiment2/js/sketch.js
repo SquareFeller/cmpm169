@@ -19,6 +19,8 @@ let pupil;
 let eye_background;
 let pupil_background; 
 let iris;
+let iris_width;
+let iris_height;
 
 class MyClass {
     constructor(param1, param2) {
@@ -36,8 +38,10 @@ function resizeScreen() {
   centerVert = canvasContainer.height() / 2; // Adjusted for drawing logic
   console.log("Resizing...");
   resizeCanvas(canvasContainer.width(), canvasContainer.height());
+  //rotate(PI/8);
   // redrawCanvas(); // Redraw everything based on new size
 }
+
 
 // setup() function is called once when the program starts
 function setup() {
@@ -52,50 +56,66 @@ function setup() {
 
   $(window).resize(function() {
     resizeScreen();
-  });
-  resizeScreen();
-  background(0);
-  
-  //making the eye
-  push();
-  rotate(-PI/8);
-  strokeWeight(18);
-  stroke(210, 153, 108);
-  //ellipse(centerHorz - 150, centerVert + 250, 620, 400); // eye background
-  eye_background = ellipse(canvasContainer.width()/2.5, canvasContainer.height()/1.1, centerHorz, canvasContainer.height()/1.2); // eye background
-  fill(0); 
-  //ellipse(centerHorz - 150, centerVert + 250, 360, 300); //pupil?
-  pupil_background = ellipse(canvasContainer.width()/2.5, canvasContainer.height()/1.1, centerHorz/1.5, canvasContainer.height()/1.6); 
-  // eye is over
-  pop();
+   });
+   resizeScreen();  
 
   c = color(0, 71, 240); // color of lighthouse's light
-  noStroke();
-  fill(c);
- // dying_light = triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20); // lighthouse's light 
-  dying_light = triangle(canvasContainer.width()/1.5, canvasContainer.height()/1.9, canvasContainer.width()/1.5, canvasContainer.height()/2.6, canvasContainer.width()/2.3, canvasContainer.height()/2.3); // lighthouse's light
+  iris_width = 360;
+  iris_height = 300;
 }
 
 // draw() function is called repeatedly, it's the main animation loop
 function draw() {
+  background(0);
+
+  let scaleX = canvasContainer.width() / 1431;
+  let scaleY = canvasContainer.height() / 600;
+  //making the eye
+  push();
+  translate(centerHorz, centerVert);
+  scale(scaleX, scaleY);
+  rotate(-PI/8);
+  strokeWeight(18);
+  fill(255);
+  stroke(210, 153, 108);
+  //ellipse(centerHorz - 150, centerVert + 250, 620, 400); // eye background
+  //eye_background = ellipse(canvasContainer.width()/2.5, 600/1.1, canvasContainer.width()/2, 600/1.2); //canvasContainer.height()/1.2); // eye background
+  eye_background = ellipse(0, 0, 620, 450);//canvasContainer.width()/2, 600/1.2); // eye background
+  fill(0); 
+  //ellipse(centerHorz - 150, centerVert + 250, 360, 300); //pupil?
+  //pupil_background = ellipse(canvasContainer.width()/2.5, 600/1.1, (canvasContainer.width()/2)/1.5, 600/1.6); 
+  pupil_background = ellipse(0, 0, 360, 300);//(canvasContainer.width()/2)/1.5, 600/1.6);
+  // eye is over
+  pop();
+
+  noStroke();
+  fill(c);
+ // scale(scaleX, scaleY);
+ // dying_light = triangle(centerHorz + 200, centerVert + 40, centerHorz + 200, centerVert - 100, centerHorz - 65, centerVert - 20); // lighthouse's light 
+  dying_light = triangle(canvasContainer.width()/1.65, 600/1.9, canvasContainer.width()/1.65, 600/2.6, canvasContainer.width()/2.3, 600/2.3); // lighthouse's light
+  //dying_light = triangle(canvasContainer.width()/2.3625, )
+  
   strokeWeight(0);
   fill(180);
   //rect(centerHorz - 100 , centerVert ,55, 120); //lighthouse base
-  rect(canvasContainer.width()/2.4, canvasContainer.height()/2, canvasContainer.width()/24, canvasContainer.height()/6); //lighthouse base
+  rect(canvasContainer.width()/2.4, 600/2, canvasContainer.width()/24, 600/4.5); //lighthouse base
   //rect(centerHorz - 88, centerVert-40, 30, 40); //lighthouse head
-  rect(canvasContainer.width()/2.3625, canvasContainer.height()/2.4, canvasContainer.width()/36, canvasContainer.height()/12); //lighthouse head
+  rect(canvasContainer.width()/2.3625, 600/2.4, canvasContainer.width()/36, 600/12); //lighthouse head
   fill(110, 0, 0);
   //triangle(centerHorz - 88, centerVert - 40, centerHorz - 59, centerVert - 40, centerHorz - 70, centerVert - 65); //lighthouse top
-  triangle(canvasContainer.width()/2.3625, canvasContainer.height()/2.4, canvasContainer.width()/2.22, canvasContainer.height()/2.4, canvasContainer.width()/2.28, canvasContainer.height()/2.8); //lighthouse top
+  triangle(canvasContainer.width()/2.3625, 600/2.4, canvasContainer.width()/2.22, 600/2.4, canvasContainer.width()/2.28, 600/2.8); //lighthouse top
 
   drawWaves(rows);
   colorMode(RGB);
   push();
+  translate(centerHorz, centerVert);
+  scale(scaleX, scaleY);
   rotate(-PI/8);
   noFill();
   strokeWeight(80);
   stroke(180, 200, 190);
-  iris = ellipse(canvasContainer.width()/2.5, canvasContainer.height()/1.1, centerHorz/1.5, canvasContainer.height()/1.6); //iris
+  //iris = ellipse(canvasContainer.width()/2.5, 600/1.1, iris_width, iris_height); //iris
+  iris = ellipse(0, 0, iris_width, iris_height); //iris
   pop();
 
 }
@@ -108,18 +128,20 @@ function mousePressed() {
         c = color(0, 71, 240);
         noStroke();
         fill(c);
-        dying_light = triangle(canvasContainer.width()/1.5, canvasContainer.height()/1.9, canvasContainer.width()/1.5, canvasContainer.height()/2.6, canvasContainer.width()/2.3, canvasContainer.height()/2.3);
+        dying_light = triangle(canvasContainer.width()/1.65, 600/1.9, canvasContainer.width()/1.65, 600/2.6, canvasContainer.width()/2.3, 600/2.3);
        // waveMaxHeight = 115;
     }else{
       c.setBlue(blue(c) - 40);
       c.setGreen(green(c) - 25);
       noStroke();
       fill(c);
-      dying_light = triangle(canvasContainer.width()/1.5, canvasContainer.height()/1.9, canvasContainer.width()/1.5, canvasContainer.height()/2.6, canvasContainer.width()/2.3, canvasContainer.height()/2.3);
+      dying_light = triangle(canvasContainer.width()/1.65, 600/1.9, canvasContainer.width()/1.65, 600/2.6, canvasContainer.width()/2.3, 600/2.3);
     //  waveMaxHeight += 30;
     }
 }
-
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
 // using "wave motion" by pippinbarr  (https://editor.p5js.org/pippinbarr/sketches/bgKTIXoir) for the waves in the eye
 
 
@@ -158,15 +180,16 @@ function drawWave(n, rows) {
   // bottom of the canvas and subtracting the number of waves
   // to move up. We're dividing the wave height in order to make the
   // waves overlap
-  let baseY = canvasContainer.height()/1.28; //centerVert + 140;//height - (n*waveMaxHeight + 100);
+  //scale(scaleX, scaleY);
+  let baseY = 425;//canvasContainer.height()/1.28; //centerVert + 140;//height - (n*waveMaxHeight + 100);
   // Get the starting time parameter for this wave based on the
   // base time and an offset based on the wave number
   let t = baseT + n*100;
   // We'll start each wave at 250 on the x axis
-  let startX = canvasContainer.width()/2.6;//centerHorz - 120; 
+  let startX = canvasContainer.width()/2.49;//canvasContainer.width()/2.65;//centerHorz - 120; 
   
   // must clamp the wave within the pupil
-  let endX = startX * 1.64; 
+  let endX = canvasContainer.width()/1.65;//iris_width;//startX * 1.64; 
   // Let's start drawing
   push();
   // We'll use the HSB model to vary their color more easily
@@ -195,7 +218,7 @@ function drawWave(n, rows) {
   // the edges of the canvas 
   
   //change the final three vertices to match the pupil shape (kinda, hopefully)
-  vertex(endX, baseY/1.15);
+  vertex(endX, baseY/1.05);
   //bezierVertex(endX/1.2, baseY/1.15, startX * 1.4, baseY/1.15, startX, baseY);
 
   //vertex(startX * 1.4, baseY/1.15);
@@ -208,3 +231,4 @@ function drawWave(n, rows) {
   // Done!
   endShape();
 }
+
