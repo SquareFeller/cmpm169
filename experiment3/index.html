@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Experiment X - Subject/Topic</title>
+	<title>Experiment 3 - Generative Methods</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
 	<meta charset="UTF-8" />
@@ -20,6 +20,9 @@
 	<!-- Load p5.js library -->
 	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
 
+	<!-- Load p5.js sound addon-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+
 	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
     <script type="text/javascript" src="../js/site.js" DEFER></script>
 	<!-- Use me for a JavaScript OOP Project -->
@@ -32,30 +35,53 @@
 	<main id="content">
 		<section>
 
-			<h1>Experiment X - Subject/Topic</h1>
+			<h1>Experiment 3 - Generative Methods</h1>
 
 			<div class="minor-section">
 				<div id="canvas-container">
 					<!-- canvas will be added here -->
 				</div>
-                <div class="fullscreen-box">
+
+               <!-- <div class="fullscreen-box">
                     <button id="fullscreen">Fullscreen</button>
                 </div>
-			</div>
+			</div> -->
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>What are you trying to acomplish with this experiment?</p>
+				<p>For this assignment, I wanted to do something with bubbles rising to the top of the screen. However, I did not want them to just
+					suddenly appear on screen and then rise. So, I decided to have them spawn at the mouse's current position and then rise to the top.
+					I think that helped to create an interactive element for the sketch. Beyond that, I wanted to experiment with audio input, so the user
+					is also able to enable their computer microphone and if the volume passes a certain threshold, the bubbles rise to the top significantly
+					faster. To enable your microphone, please hold down left shift.  
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>Describe in detail what you did technically and how it works?</p>
+				<p>I first began by using Andrew Aaron's <a href ="https://openprocessing.org/sketch/868184"> "Cute Bubbles"</a> as a starting point for creating the 
+					bubbles. However, I knew I was going to have to change the x and y positions of the bubbles to spawn at the mouse's current position, so I then found
+					a p5.js sketch by melodyloveless titled <a href="https://editor.p5js.org/melodyloveless/sketches/l5GR7rWbF"> "Simple Trailing Animation (push and shift) copy"</a> for help 
+					making the mouse trail. The code creates a list to store the current x and y position of the mouse at each frame. The values are pushed to the list during 
+					the draw() loop, and with the help of the p5.js sketch, I was able to create a trail of bubbles. The next step was to get each spawned bubble and send it up to
+					the top, which was done by subtracting the y position of each bubble. I asked ChatGPT for some assistance with it by asking "can you make a p5js sketch that creates a mouse trail of ellipses, but then sends each ellipse to the top of the screen?"
+					which also led me to change the original "Cute Bubbles"' code to just draw the bubbles within the draw() loop, instead of in the Bubbles class
+					that was originally there. The final element was to get more interactive by messing with microphone input. I found a good starting point with
+					amcc's p5.js sketch, <a href="https://editor.p5js.org/amcc/sketches/Jtg4GaAG0"> "microphone"</a>. I made some modifications so that
+					holding down the left shift key starts the microphone and if the volume passes a certain threshold, the y position of the bubbles is decreased
+					by a much greater value.
+				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>Each person that worked on the code should reflect on the process, the difficulties, and the successes of the experiment.</p>
+				<p>This experiment was at times a bit more smoother but also a bit more difficult than the first one. I did not have a clear starting vision like 
+					I had for Experiment 2, so I had to spend more time thinking of an idea to pursue. However, once I decided on bubbles rising to the top, there 
+					ended up being a lot of examples for things like the creation of the bubbles, the mouse trail, and the microphone input. I am not entirely sure how much
+					of this experiment really fits the "generative" component because the size and shape of the bubbles are not very random nor are their spawn points. Although,
+					I do quite like how it follows the mouse and how the microphone input can change how much the bubbles rise. it was a lot of fun to tinker with audio input and I 
+					think I would like to continue to experiment with it for future assignments. 
+				</p>
 			</div>
 
 		</section>

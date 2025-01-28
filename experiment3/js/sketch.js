@@ -14,17 +14,9 @@ const VALUE2 = 2;
 let myInstance;
 let canvasContainer;
 var centerHorz, centerVert;
-
-class MyClass {
-    constructor(param1, param2) {
-        this.property1 = param1;
-        this.property2 = param2;
-    }
-
-    myMethod() {
-        // code to run when method is called
-    }
-}
+var mouse;
+let pos = [];
+let mic;
 
 function resizeScreen() {
   centerHorz = canvasContainer.width() / 2; // Adjusted for drawing logic
@@ -34,6 +26,9 @@ function resizeScreen() {
   // redrawCanvas(); // Redraw everything based on new size
 }
 
+//using Andrew Aaron's "Cute Bubbles" from open processing https://openprocessing.org/sketch/868184 as a starting point
+
+
 // setup() function is called once when the program starts
 function setup() {
   // place our canvas, making it fit our container
@@ -41,39 +36,56 @@ function setup() {
   let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
   canvas.parent("canvas-container");
   // resize canvas is the page is resized
-
-  // create an instance of the class
-  myInstance = new MyClass("VALUE1", "VALUE2");
-
-  $(window).resize(function() {
+  $(window).resize(function () {
     resizeScreen();
   });
   resizeScreen();
+  //createCanvas(windowWidth, windowHeight);
+  ellipseMode(CENTER);
+
+  //also using the p5.js sketch "microphone" by amcc https://editor.p5js.org/amcc/sketches/Jtg4GaAG0 as a resource for microphone input
+
+  mic = new p5.AudioIn();
+  mic.stop();
+  mouse = createVector(1, 1);
 }
 
 // draw() function is called repeatedly, it's the main animation loop
 function draw() {
-  background(220);    
-  // call a method on the instance
-  myInstance.myMethod();
+  background(0, 0, 75);
+  /*mouse trail code adapted from "Simple Trailing Animation (push and shift) copy" by melodyloveless https://editor.p5js.org/melodyloveless/sketches/l5GR7rWbF 
+  as well as asking chatGPT the question "can you make a p5js sketch that creates a mouse trail of ellipses, but then sends each ellipse to the top of the screen?" for the code to send bubbles up to the screen. 
+  */
 
-  // Set up rotation for the rectangle
-  push(); // Save the current drawing context
-  translate(centerHorz, centerVert); // Move the origin to the rectangle's center
-  rotate(frameCount / 100.0); // Rotate by frameCount to animate the rotation
-  fill(234, 31, 81);
-  noStroke();
-  rect(-125, -125, 250, 250); // Draw the rectangle centered on the new origin
-  pop(); // Restore the original drawing context
+  pos.push(createVector(mouseX, mouseY));
+  for (let i = 0; i < pos.length; i++) {
+    let bubble = pos[i]; 
+    let bubble_size = random(50, 55);
+    let x_disp = random(100);
 
-  // The text is not affected by the translate and rotate
-  fill(255);
-  textStyle(BOLD);
-  textSize(140);
-  text("p5*", centerHorz - 105, centerVert + 40);
-}
+    strokeWeight(map(bubble_size, 50, 55, 1, 6));
+    stroke(color(random(50, 100), random(150, 250), 255));
+    fill(color(random(100), random(250), 255, 50));
+    if (keyIsDown(16) === true) { //hold left shift down to turn on mic
+      mic.start();
+      bubble.y -= 1;
+      if (mic.getLevel() * 1000 > 200) {
+        bubble.y -= random(15, 30);
+      }
+    } else {
+      mic.stop();
+      bubble.y -= random(1, 3);
+    }
+    ellipse(bubble.x, bubble.y, bubble_size, bubble_size); //bubble
 
-// mousePressed() function is called once after every time a mouse button is pressed
-function mousePressed() {
-    // code to run when mouse is pressed
+    let buffer_x = (0.2 * bubble_size) + ((cos(x_disp * 20) * 5) / 2);
+    let buffer_y = (0.2 * bubble_size) + ((sin(x_disp * 17) * 5) / 2);
+
+    stroke(255);
+    arc(bubble.x + buffer_x, bubble.y - buffer_y, bubble_size / 5, bubble_size / 5, TWO_PI - (PI / 2), TWO_PI);
+    if (bubble.y < 0) {
+      pos.splice(i, 1);
+      i--;
+    }
+  }
 }
