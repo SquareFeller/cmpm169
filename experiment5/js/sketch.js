@@ -90,7 +90,7 @@ function setup() {
 }
 
 function draw() {
-  background(100);
+  background(30);
   orbitControl();
   let t = model(train);
   if(trainSound.getVolume() > 0.95 && !hasplayed){
@@ -99,7 +99,7 @@ function draw() {
     crowdSound.play();
   }
 
-  textureAnimate(textureElement);
+  textureAnimate(textureElement, 4);
 }
 
 function mousePressed() {
