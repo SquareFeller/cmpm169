@@ -61,8 +61,6 @@ function resizeScreen() {
   // redrawCanvas(); // Redraw everything based on new size
 }
 
-
-
 // setup() function is called once when the program starts
 function setup() {
   // place our canvas, making it fit our container
@@ -92,9 +90,7 @@ function setup() {
 }
 
 function draw() {
-  console.log(displayWidth * pixelDensity() + "," + displayHeight * pixelDensity());
-  background(65);
-  
+  background(100);
   orbitControl();
   let t = model(train);
   if(trainSound.getVolume() > 0.95 && !hasplayed){
