@@ -62,38 +62,40 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>For this assignment, I was inspired by the way Alexander Chen's <a href = "http://mta.me"> "mta.me"</a> had lines that when intersected would
-					have a strum and I thought about a project where you could sturm lines by moving your mouse over it. And then I eventually decided to incorporate
-					some voice pitch detection into it, so that some lines/notes would be played depending on what sound you made. The microphone is always on for this 
-					one and it is incredibly sensitive.  
+				<p> PLEASE CLICK ON CANVAS FOR AUDIO TO LOAD <br>
+					For this assignment, I saw a project by Richard Bourne on OpenProcessing called <a href= "https://openprocessing.org/sketch/738171"> "3D Text" </a> and I liked the way the text got bigger as it got
+					closer to the screen and smaller as it got further away. That idea reminded me of the (likely false) story surrounding one of the first films "The Arrival of a Train at La Ciotat Station", which 
+					is that the audience thought the train, as it got closer to the camera, was going to leave the screen and crash into them. Panic and chaos ensued, as per the story. So I wanted to take that 
+					film and story and try to capture that in the piece, using a 3D train model that gets louder as it gets closer and an audience screaming once it gets as close as it can. The train is controlled by you 
+					and the scroll of your mouse. <br><br>
+
+					Audio Attributions: <br> 
+					Train_arrive.mp3 by Defaultv -- <a href = "https://freesound.org/s/534361/">https://freesound.org/s/534361/</a> -- License: Creative Commons 0 <br>
+					CrowdPanic.mp3 by belthazarus -- <a href = "https://freesound.org/s/435716/">https://freesound.org/s/435716/</a>-- License: Creative Commons 0 <br><br>
+					
+					Image Attributions: <br>
+					train model by z-lengyel -- <a href = "https://www.cgtrader.com/products/mav-40-steam-locomotive-tank-engine">https://www.cgtrader.com/products/mav-40-steam-locomotive-tank-engine</a> <br>
+					texture image by luis_molinero -- <a href="https://www.freepik.com/free-photo/rough-textured-wall_1198446.htm#fromView=image_search_similar&page=1&position=9&uuid=a87639a7-b31b-4b39-b572-de775eebb5c2&query=Film+Grain+Texture">https://www.freepik.com/free-photo/rough-textured-wall_1198446.htm#fromView=image_search_similar&page=1&position=9&uuid=a87639a7-b31b-4b39-b572-de775eebb5c2&query=Film+Grain+Texture</a>
+
 				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>After being inspired by Chen's project, I spent time on openprocessing.org and found <a href="https://openprocessing.org/sketch/2306856"> "Little Guitar"</a> by 
-					Syed Umer Ahmed / Karsten Schuhl. It was exactly what I had in mind, so I used Ahmed's work as well as the sound files included
-					for the basis of this project. I removed the keyboard functionality from it and then added a reverb sound to each rectangle with help from the p5.js reference page. I made more minor visual
-					changes like increasing the size of the particles and reducing the alpha value for each rectangle. The next step 
-					was microphone integration and pitch detection. I found Jenny-yw's <a href="https://editor.p5js.org/Jenny-yw/sketches/J1GteCrzt"> "pitch detection sketch"</a> which gave me a good 
-					starter for just taking getting the pitch from the microphone and then I combined that code with ml5's <a href = "https://editor.p5js.org/ml5/sketches/kpWGN573Ij"> "PitchDetection_Piano sketch"</a>
-					because that one was focused on mapping the incoming pitch to a note on a piano's scale. With this two projects,
-					I was able to adapt the starting project with microphone input and pitch detection by assigning each rectangle a note,
-					and then checking to see if that note matched the current note. The microphone is still really sensitive, so the notes were being played rapidly and frequently. 
-					To try to manage this, there is a maximum of 20 notes that can come from the microphone before the screen prompts you to strum a note.
-					Once a note is strummed, the "singing" can resume. So both mouse and microphone functionality are included, which I find interesting.
-					However, the microphone input still remains very sensitive, so that is something to keep in mind. 
+				<p>I learned about orbitControl() from Bourne's project and decided it would be essential for my project. I combined orbitControl() with the mousePressed() function to keep track of when the 
+					mouse is being scrolled up and when it is being scrolled down. The direction of the mouse scroll would determine whether to increase the volume of the train sound or decrease it. I then looked for a 3D train model 
+					and found z-lengyel's model, which I reoriented in Blender. However, the camera is also adjusted during setup() so that it can frame the train in a way that somewhat matches the original film.
+					The film grain effect also took some time to achieve, but I learned of the <a href= "https://github.com/meezwhite/p5.grain"> p5.grain library</a> which took care of most of the work for me. I found <a href = "https://github.com/meezwhite/p5.grain/blob/main/examples/texture-overlay-outside/style.css">example code</a> from 
+					the Github, which I used in my sketch.js file and style.css file in order to overlay luis_molinero's image over the canvas and animate it. 
 				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>This experiment was much more rushed. I struggled to get started with this one and once I found Ahmed's project, I was not really sure where to take it. I can't quite call
-					this my project because it still feels like Ahmed's to me. I thought the pitch detection was going to add some innovation to it, but it was not implemented as well as I would have liked.
-					It also did not help that this week was a pretty important one for my 171 group and our project, so I was much more focused on that this week. I do like that I got to tinker
-					more with p5.Sound and discover this new ml5 library. However, the audio and visuals aren't really married well in this project nor is the interactive component as 
-					refined as I might have been able to make it. Still, with the help of Ahmed, Jenny-yw, and ml5, I was able to see the project that I had envisioned at the start of this 
-					experiment.  
+				<p>This experiment was also rushed like experiment 4. I wasn't quite sure what to do for this one, but once my mind went to replicating "The Arrival of a Train at La Ciotat Station", I felt much more motivated. I am not super pleased with the scale of the model because it doesn't quite convey a massive 
+					train coming towards the screen, but this was likely the best I could do with the time I had. I also would have liked to have spent more time on the audio because the audience audio only plays once and I just have to hope that the user is able to hear it when it happens. I am afraid of this experiment being another intance of 
+					not being quite enough because it ultimately really is just one object drawn that gets bigger and smaller depening on the scroll of the mouse. The film grain effect could have been improved because it can be a bit tough on the eyes. Still, though, I am glad that I came up with an idea for this one that was enough to get me motivated
+					and while I definitely could have done more, I still like it. 
 				</p>
 			</div>
 
