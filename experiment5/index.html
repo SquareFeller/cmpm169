@@ -11,29 +11,39 @@
 
 	<!-- Include CSS file, including a site-wide CSS and for this particular page -->
 	<link rel="stylesheet" type="text/css" href="../css/site.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="./js/style.css">
 
 	<!-- Load jQuery library -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
         crossorigin="anonymous"></script>
-	<!-- Load p5.js library -->
-	<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
 
-	<!-- Load p5.js sound addon-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
-	<script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
-
-	<!-- Link to javascript files - DEFER waits until all elements are rendered -->
-    <script type="text/javascript" src="../js/site.js" DEFER></script>
-	<!-- Use me for a JavaScript OOP Project -->
-	<script type="text/javascript" src="./js/project.js" DEFER></script>
-	<!-- Use me for a p5.js project -->
-	<script type="text/javascript" src="./js/sketch.js" DEFER></script>
 </head>
 <body>
+	<main>
+        <div id="texture"></div>
+    </main>
+		<!-- Load p5.js library -->
+		<script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.js"></script>
+
+		<!-- Load p5.js sound addon-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+	
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+		<script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
+	
+		<!-- Linking the p5.grain addon -->
+		<script type="text/javascript" src="./js/p5.grain.min.js"></script>
+	
+		<!-- Link to javascript files - DEFER waits until all elements are rendered -->
+		<script type="text/javascript" src="../js/site.js" DEFER></script>
+		<!-- Use me for a JavaScript OOP Project -->
+		<script type="text/javascript" src="./js/project.js" DEFER></script>
+	
+		<!-- Use me for a p5.js project -->
+		<script type="text/javascript" src="./js/sketch.js" DEFER></script>
+	<!-- <div id="texture"></div> -->
+
 	<!-- Style this page by changing the CSS in ../css/site.css or css/experiment.css -->
 	<main id="content">
 		<section>
