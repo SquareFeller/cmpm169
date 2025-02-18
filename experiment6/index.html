@@ -55,35 +55,32 @@
 
 			<div class="minor-section">
 				<h2>Description</h2>
-				<p>For this assignment, ...
+				<p>For this assignment, I worked with my classmate, Keven Paw. He recalled a segment from an educational show where two knights with a part of a word above
+					their heads would collide to create the word. We thought it would be interesting to take that idea of bubbles with sounds colliding into each other and getting
+					a text-to-speech library to read out the combination. 
 				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Technical</h2>
-				<p>After being inspired by Chen's project, I spent time on openprocessing.org and found <a href="https://openprocessing.org/sketch/2306856"> "Little Guitar"</a> by 
-					Syed Umer Ahmed / Karsten Schuhl. It was exactly what I had in mind, so I used Ahmed's work as well as the sound files included
-					for the basis of this project. I removed the keyboard functionality from it and then added a reverb sound to each rectangle with help from the p5.js reference page. I made more minor visual
-					changes like increasing the size of the particles and reducing the alpha value for each rectangle. The next step 
-					was microphone integration and pitch detection. I found Jenny-yw's <a href="https://editor.p5js.org/Jenny-yw/sketches/J1GteCrzt"> "pitch detection sketch"</a> which gave me a good 
-					starter for just taking getting the pitch from the microphone and then I combined that code with ml5's <a href = "https://editor.p5js.org/ml5/sketches/kpWGN573Ij"> "PitchDetection_Piano sketch"</a>
-					because that one was focused on mapping the incoming pitch to a note on a piano's scale. With this two projects,
-					I was able to adapt the starting project with microphone input and pitch detection by assigning each rectangle a note,
-					and then checking to see if that note matched the current note. The microphone is still really sensitive, so the notes were being played rapidly and frequently. 
-					To try to manage this, there is a maximum of 20 notes that can come from the microphone before the screen prompts you to strum a note.
-					Once a note is strummed, the "singing" can resume. So both mouse and microphone functionality are included, which I find interesting.
-					However, the microphone input still remains very sensitive, so that is something to keep in mind. 
+				<p> After we settled on the idea, we looked to existing sketches and libraries as a starting point. We found a <a href=" https://editor.p5js.org/hao/sketches/8OhA3cn1J">p5.js sketch by hao</a> which uses text-to-speech
+					that led us to learning about R. Luke DuBois' <a href="https://idmnyu.github.io/p5.js-speech/">p5.speech library</a>. We decided we needed a wordBubble class so that each bubble
+					could have its own word, x and y position, a speed, and velocity. We also needed a colliding function within the class, which was done with the help of <a href="https://www.youtube.com/watch?v=uAfw-ko3kB8">this Coding Train video</a> and 
+					<a href="https://www.youtube.com/watch?v=GY-c2HO2liA&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA&index=1&t=0s">this video</a>. There were also other functions to draw the bubbles and to move their x and y positions. The bubbles are created during setup() and 
+					the speech library is also initialized. Some global variables that were used include an array that contains all the phonemes that a bubble could get, a max number of bubbles drawn at the beginning, and a 
+					diameter for all the bubbles to have. In the draw function, the bubbles are moved and redrawn and their colliding function is called to see if they have hit another bubble. Once that happens,
+					the draw loop is stopped so that the user can see a collision has happened and the sounds belonging to each collided bubble are passed to the speech library in an order that we settled on. The library reads this combined sound 
+					and then the draw loop resumes until the next collision. 
 				</p>
 			</div>
 
 			<div class="minor-section">
 				<h2>Reflection</h2>
-				<p>This experiment was much more rushed. I struggled to get started with this one and once I found Ahmed's project, I was not really sure where to take it. I can't quite call
-					this my project because it still feels like Ahmed's to me. I thought the pitch detection was going to add some innovation to it, but it was not implemented as well as I would have liked.
-					It also did not help that this week was a pretty important one for my 171 group and our project, so I was much more focused on that this week. I do like that I got to tinker
-					more with p5.Sound and discover this new ml5 library. However, the audio and visuals aren't really married well in this project nor is the interactive component as 
-					refined as I might have been able to make it. Still, with the help of Ahmed, Jenny-yw, and ml5, I was able to see the project that I had envisioned at the start of this 
-					experiment.  
+				<p>
+					Originally, we weren’t too sure if this experiment was within the suggested constraints. It also does not venture too in-depth into the topics related; however, after reassurance from Sai, we pressed on. 
+					The concept stems from old-school educational programs that teach kids to read, but with the weird inhuman text-to-speech interpreting the random words. One aspect that could have been improved is how often the program interprets words like: cnn or tcn. 
+					It would usually just abbreviate them to: C.N.N. or T.C.N, which wasn’t what we were looking for, but it would require far more tweaking of the actual API. We would have also liked to have created a visual effect similar to <a href="https://editor.p5js.org/wmodes/sketches/Ne8is2yx7">Wes's Meta Balls</a>, with its fluorescent lighting and ASCII text shape. 
+					Overall, while the weekend was hectic, we were able to work together and find time to collaborate. For the most part, we were on a call and used liveshare via VS Code. For working on an experiment with a partner, things went pretty smoothly.
 				</p>
 			</div>
 
