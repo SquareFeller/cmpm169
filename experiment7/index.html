@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <script src="libraries/p5.speech.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  </head>
+  
+  <body>
+
+    <canvas id="chart"></canvas>
+    <script src="sketch.js"></script>
+    <main id="content">
+      <section>
+  
+        <h1>Experiment 7 - Data Visualization</h1>
+  
+        <div class="minor-section">
+          <div id="canvas-container">
+            <!-- canvas will be added here -->
+          </div>
+  
+                 <!-- <div class="fullscreen-box">
+                      <button id="fullscreen">Fullscreen</button>
+                  </div>
+        </div> -->
+  
+        <div class="minor-section">
+          <h2>Description</h2>
+          <p>For this assignment, I worked again with my classmate, Keven Paw. We spent some time thinking of what sort of data we could visualize. We decided on tracking our own data, in particular our mood over the course of a day at 30-minute intervals. 
+            We wanted colors to represent the moods and the length of each bar to represent the intensity of that mood. We were inspired by the aurora borealis and its color palette. In an effort to make the data a tad more 
+            interesting, we decided not to reveal what mood the colors correlate to as an opportunity for you, the viewer, to infer and wonder how we felt that day. 
+          </p>
+        </div>
+  
+        <div class="minor-section">
+          <h2>Technical</h2>
+          <p> We started by reviewing "The Coding Train" videos for guidance on how to parse CSV files and using the <a href="https://www.chartjs.org/">chart.js library</a>. From there, it became a matter of referencing the chart.js documentation
+            frequently to create the floating bar chart and parse data from a CSV file we created that held the time, the intensity of our moods, and the colors of our moods. 
+          </p>
+        </div>
+  
+        <div class="minor-section">
+          <h2>Reflection</h2>
+          <p>
+            We had spent a lot of time trying to decide on how to innovate data visualization. It’s definitely a field that requires more thought and time to really branch off from what most people typically see. For us personally, it’s also easier in other mediums than just coding to make something truly unique.
+            we wanted to further improve the chart by adding animations or a shader that could make it look more aurora-like. In the end, we decided to call it as our time would allow. 
+          </p>
+        </div>
+  
+      </section>
+      <nav id="links" class="minor-section">
+        <!-- Put link back to homepage here. -->
+              <ul>
+                  <li><a href="../index.html">Home</a></li>
+              </ul>
+      </nav>
+    </main>
+  </body>
+</html>
