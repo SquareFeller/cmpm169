@@ -65,7 +65,7 @@ function setup() {
    resizeScreen();  
   // Create the webcam video and hide it
   video = createCapture(VIDEO, {flipped: false});
-  video.size(640, 480);
+  video.size();
    video.hide();
   // Start detecting faces from the webcam video
   faceMesh.detectStart(video, gotFaces);
